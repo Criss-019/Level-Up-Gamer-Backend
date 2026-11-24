@@ -1,0 +1,62 @@
+-- USUARIO -> BOLETA -> DETALLE_BOLETA <- PRODUCTO <- CATEGORIA
+-- =====================================================================
+
+CREATE TABLE IF NOT EXISTS CATEGORIA (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS USUARIO (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100),
+    email VARCHAR(150),
+    run VARCHAR(20),
+    fecha_nacimiento VARCHAR(20),
+    region VARCHAR(100),
+    comuna VARCHAR(100),
+    direccion VARCHAR(255),
+    puntos INT DEFAULT 50,
+    es_duoc BOOLEAN DEFAULT FALSE,
+    activo BOOLEAN DEFAULT TRUE,
+    rol VARCHAR(50) NOT NULL DEFAULT 'ROLE_CLIENTE'
+);
+
+CREATE TABLE IF NOT EXISTS PRODUCTO (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(50) NOT NULL UNIQUE,
+    nombre VARCHAR(150) NOT NULL,
+    descripcion VARCHAR(1500),
+    precio DOUBLE NOT NULL,
+    stock INT DEFAULT 0,
+    stock_critico INT DEFAULT 2,
+    imagen VARCHAR(255),
+    activo BOOLEAN DEFAULT TRUE,
+    categoria_id BIGINT,
+    CONSTRAINT fk_producto_categoria FOREIGN KEY (categoria_id) REFERENCES CATEGORIA(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS BOLETA (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    fecha DATETIME NOT NULL,
+    subtotal DOUBLE NOT NULL DEFAULT 0.0,
+    descuento DOUBLE NOT NULL DEFAULT 0.0,
+    total DOUBLE NOT NULL DEFAULT 0.0,
+    estado VARCHAR(50) NOT NULL DEFAULT 'EMITIDA',
+    usuario_id BIGINT,
+    CONSTRAINT fk_boleta_usuario FOREIGN KEY (usuario_id) REFERENCES USUARIO(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS DETALLE_BOLETA (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    boleta_id BIGINT NOT NULL,
+    producto_id BIGINT NOT NULL,
+    cantidad INT NOT NULL DEFAULT 1,
+    precio_unitario DOUBLE NOT NULL,
+    subtotal DOUBLE NOT NULL,
+    CONSTRAINT fk_detalle_boleta FOREIGN KEY (boleta_id) REFERENCES BOLETA(id) ON DELETE CASCADE,
+    CONSTRAINT fk_detalle_producto FOREIGN KEY (producto_id) REFERENCES PRODUCTO(id) ON DELETE RESTRICT
+);
