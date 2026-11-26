@@ -2,7 +2,7 @@ spring:
   application:
     name: level-up-gamer-backend
   datasource:
-    url: jdbc:mysql://localhost:3306/level_up_gamer_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3307/level_up_gamer_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ""

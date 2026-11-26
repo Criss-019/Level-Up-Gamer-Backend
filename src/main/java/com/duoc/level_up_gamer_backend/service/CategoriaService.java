@@ -20,22 +20,18 @@ public class CategoriaService {
         return categoriaRepository.findAll();
     }
 
-    public Optional<Categoria> obtenerPorId(Long id) {
+    public Optional<Categoria> buscarPorId(Long id) {
         return categoriaRepository.findById(id);
     }
 
-    public Optional<Categoria> obtenerPorNombre(String nombre) {
+    public Optional<Categoria> buscarPorNombre(String nombre) {
         return categoriaRepository.findByNombre(nombre);
     }
 
     public Categoria crear(Categoria categoria) {
         if (categoria.getNombre() == null || categoria.getNombre().trim().isEmpty()) {
-            throw new IllegalArgumentException("El nombre de la categoría es obligatorio");
+            throw new IllegalArgumentException("El nombre de la categoría no puede estar vacío");
         }
         return categoriaRepository.save(categoria);
-    }
-
-    public void eliminar(Long id) {
-        categoriaRepository.deleteById(id);
     }
 }

@@ -150,7 +150,7 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println(" • Admin    : admin / admin123  (Rol: ROLE_ADMIN)");
         System.out.println(" • Vendedor : vendedor / vendedor123 (Rol: ROLE_VENDEDOR)");
         System.out.println(" • Cliente  : cliente / user123 (Rol: ROLE_CLIENTE)");
-        System.out.println("Base de Datos MySQL: level_up_gamer_db (puerto 3306)");
+        System.out.println("Base de Datos MySQL: level_up_gamer_db (puerto 3307)");
         System.out.println("Swagger UI disponible en: http://localhost:8089/swagger-ui/index.html");
         System.out.println("==================================================");
     }
